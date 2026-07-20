@@ -1,0 +1,31 @@
+# Ignore PDF and PNG files
+*.pdf
+*.png
+
+# Ignore Julia data files
+*.jld2
+
+# Ignore Python cache and virtual environment folders
+__pycache__/
+*.py[cod]
+*.so
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore VSCode settings
+.vscode/
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore Linux system files
+*~
+
+# Ignore log files and temporary files
+*.log
+*.tmp
+*.swp
+*.bak
+*.aux
+
