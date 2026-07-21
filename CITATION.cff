@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the article from preferred-citation and this software itself."
+type: software
+title: "q-krylov-subspace-diagonalization"
+abstract: >-
+  Reference implementation for the paper "Quantum Krylov Subspace
+  Diagonalization via Time Reversal Symmetries". Krylov Time Reversal
+  (KTR) is a protocol for quantum Krylov subspace diagonalization that
+  avoids controlled unitaries by exploiting a time-reversal symmetry
+  of the Hamiltonian dynamics.
+authors:
+  - family-names: Mariella
+    given-names: Nicola
+  - family-names: Rico
+    given-names: Enrique
+  - family-names: Byrne
+    given-names: Adam
+  - family-names: Zhuk
+    given-names: Sergiy
+repository-code: "https://github.com/aljabr0/q-krylov-subspace-diagonalization"
+license: Apache-2.0
+date-released: "2025"
+keywords:
+  - quantum computing
+  - Krylov subspace methods
+  - quantum simulation
+  - time-reversal symmetry
+  - tensor networks
+preferred-citation:
+  type: article
+  title: "Quantum Krylov Subspace Diagonalization via Time Reversal Symmetries"
+  authors:
+    - family-names: Mariella
+      given-names: Nicola
+    - family-names: Rico
+      given-names: Enrique
+    - family-names: Byrne
+      given-names: Adam
+    - family-names: Zhuk
+      given-names: Sergiy
+  year: 2025
+  journal: "arXiv preprint"
+  identifiers:
+    - type: other
+      value: "arXiv:2507.22559"
+  url: "https://arxiv.org/abs/2507.22559"
