@@ -7,8 +7,6 @@
 # Any modifications or derivative works of this code must retain this
 # copyright notice, and modified files need to carry a notice indicating
 # that they have been altered from the originals.
-#
-# Modified to add explanatory documentation. No computational code was changed.
 
 # This script employs the derivative estimation scheme proposed in
 # https://arxiv.org/abs/2412.17289 , and the standard cumulative simpson's 
@@ -24,7 +22,6 @@
 # 5. Save the relative eigenvalue-error and matrix-error plots as PDF files.
 
 
-#%%
 import numpy as np
 from numpy import load
 import scipy.linalg as la
@@ -36,7 +33,7 @@ import matplotlib as mpl
 from pathlib import Path
 import subprocess
 
-# Use Computer Modern-style serif fonts for publication figures.
+# Fonts for publication figures.
 mpl.rcParams.update({
     "font.family": "serif",
     "font.serif": ["cmr10", "DejaVu Serif"],
@@ -139,14 +136,11 @@ def format_plot(ylabel):
     plt.ylabel(ylabel, fontsize=18)
     plt.legend(fontsize=18)
 
-#%%
-
 # Run data generation, reconstruction, error analysis, and plotting only when
 # this file is executed as a script.
 if __name__ == "__main__":
 
     # Configure the system size, Krylov dimension, and dense sampling ratio.
-    # direct overlap data
     n = 48 # system size
     m = 10 # krylov dimension
     r = 20 # number of datapoints for integral/derivative estimators
@@ -155,7 +149,6 @@ if __name__ == "__main__":
 
     # Load the standard-resolution reference overlaps. If the archive is
     # absent, generate it with the Julia script using r=1 and k=k_exact.
-    # Standard overlaps
     k_exact = 0.4 # Trotter steps
     exact_path = f"overlaps_per_g_n{int(n)}_m{int(m)}_r1_k{k_exact:.2f}.npz"
     if not Path(exact_path).exists():
@@ -170,11 +163,8 @@ if __name__ == "__main__":
             check=True)
     data_exact = dict(np.load(exact_path))
 
-    #%%
-
     # Load densely sampled overlaps for differentiation and integration. If
     # absent, generate them with the Julia script using the configured r and k.
-    # Overlap data for derivative/integration estimation 
     k = 5 # Trotter steps
     der_int_path = f"overlaps_per_g_n{int(n)}_m{int(m)}_r{int(r)}_k{k:.2f}.npz"
     if not Path(der_int_path).exists():
@@ -188,8 +178,6 @@ if __name__ == "__main__":
             ],
             check=True,)
     data = dict(np.load(der_int_path))
-
-    #%%
 
     # Recover the simulation parameters stored with the dense overlap data.
     dt, gammas = data["dt"], data["gammas"]
@@ -210,7 +198,6 @@ if __name__ == "__main__":
         a_err_mst.append(la.norm(a - a_msmt[::r,::r])/la.norm(a))
         b_err_mst.append(la.norm(b - b_msmt[::r,::r])/la.norm(b))
 
-    #%%
     # Reconstruct A from a derivative estimate of B, and reconstruct B from a
     # cumulative integral estimate of A.
 
@@ -307,8 +294,6 @@ if __name__ == "__main__":
         lambda0_tr_msmt.append(np.min(la.eig(a_tr_msmt_thres,b_tr_msmt_thres)[0]))
         lambda0_tr_minimax.append(np.min(la.eig(a_tr_minimax_thres,b_tr_minimax_thres)[0]))
         lambda0_tr_integral.append(np.min(la.eig(a_tr_integral_thres,b_tr_integral_thres)[0]))
-
-    # %%
 
     # Plot relative errors in the lowest generalized eigenvalue.
     plt.figure(figsize=(12, 8))

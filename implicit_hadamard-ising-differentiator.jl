@@ -7,8 +7,6 @@
 # Any modifications or derivative works of this code must retain this
 # copyright notice, and modified files need to carry a notice indicating
 # that they have been altered from the originals.
-#
-# Modified to accept r and k as command-line arguments.
 
 # Generate the overlap matrices for numerical demonstration of Lemma F.1.
 # For further details on the generation of these matrices, see the
@@ -27,7 +25,6 @@ using ProgressBars
 using NPZ
 using Printf
 
-# input params
 # Input parameters
 length(ARGS) == 8 || error(
     "Expected arguments: --n <integer> --m <integer> " *
@@ -73,8 +70,7 @@ xi_recip_sq = norm(v0)^2 # 1/xi^2 (see paper)
 v0_perp = apply(ising_chain_time_rev_mpo(sites, -1), phi; cutoff=trotter_config.cutoff)
 PROJ_MIN_NORM = 1e-3
 
-# Guard against a degenerate decomposition (one component ~0 would make the
-# corresponding Krylov sequence numerically meaningless).
+# Guard against a degenerate decomposition
 @assert all([norm(v0), norm(v0_perp)] .>= PROJ_MIN_NORM)
 normalize!(v0)
 normalize!(v0_perp)
