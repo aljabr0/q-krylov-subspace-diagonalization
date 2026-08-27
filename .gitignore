@@ -5,6 +5,9 @@
 # Ignore Julia data files
 *.jld2
 
+# Ignore npz data files
+*.npz
+
 # Ignore Python cache and virtual environment folders
 __pycache__/
 *.py[cod]
