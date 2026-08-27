@@ -151,6 +151,6 @@ end
 # no plot is produced here -- the relative error analysis is performed in differentiator.py
 k_filename = @sprintf("%.2f", k)
 npzwrite(
-    "overlaps_per_g_n$(n)_m$(m)_r$(r)_k$(k_filename).npz",
+    "./data/indirect_method_data/overlaps_per_g_n$(n)_m$(m)_r$(r)_k$(k_filename).npz",
     dict_to_save,
 )
