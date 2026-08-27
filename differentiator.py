@@ -150,7 +150,7 @@ if __name__ == "__main__":
     # Load the standard-resolution reference overlaps. If the archive is
     # absent, generate it with the Julia script using r=1 and k=k_exact.
     k_exact = 0.4 # Trotter steps
-    exact_path = f"overlaps_per_g_n{int(n)}_m{int(m)}_r1_k{k_exact:.2f}.npz"
+    exact_path = f"./indirect_method_data/overlaps_per_g_n{int(n)}_m{int(m)}_r1_k{k_exact:.2f}.npz"
     if not Path(exact_path).exists():
         subprocess.run(
             ["julia",
@@ -166,7 +166,7 @@ if __name__ == "__main__":
     # Load densely sampled overlaps for differentiation and integration. If
     # absent, generate them with the Julia script using the configured r and k.
     k = 5 # Trotter steps
-    der_int_path = f"overlaps_per_g_n{int(n)}_m{int(m)}_r{int(r)}_k{k:.2f}.npz"
+    der_int_path = f"./indirect_method_data/overlaps_per_g_n{int(n)}_m{int(m)}_r{int(r)}_k{k:.2f}.npz"
     if not Path(der_int_path).exists():
         subprocess.run(
             ["julia",

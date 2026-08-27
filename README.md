@@ -20,6 +20,7 @@ Drivers and recipes:
 - **`eigvals-dmrg.jl`** — computes reference ground-state energies with DMRG for the same recipe/parameter scan, used as ground truth when plotting.
 - **`eigvals-plot.jl`** — command-line tool (`ArgParse`-based) that reads one or more `.jld2` overlap files, solves the generalized eigenvalue problem (with spectral thresholding on the Gram matrix), and plots the relative error of the extracted ground-state energy against the scan parameter; optionally overlays a DMRG reference curve.
 - **`generate_plots.sh`** — regenerates the figures used in the paper by invoking `eigvals-plot.jl` against precomputed data expected under `data/` (see below), then merges pairs of figures side by side with a small LaTeX/TikZ snippet (requires `pdflatex`).
+- **`differentiator.py`** - generates overlap data for the derivative/ integral estimation via `implicit_hadamard-ising-differentiator.jl` and plots the relative error in the overlap matrices and ground energies.
 
 Standalone checks:
 - **`test-krylov-time-reversal.jl`** — small dense (exact-diagonalization) sanity check of the KTR method against direct diagonalization of the Ising Hamiltonian.
@@ -65,15 +66,21 @@ Plot the relative error of the extracted ground energy against a scan parameter:
 julia eigvals-plot.jl path/to/overlaps.jld2 --xlabel "\gamma" --ref-energy path/to/dmrg.jld2 --output plot.pdf
 ```
 
-Regenerate all paper figures at once (expects the corresponding `.jld2` datasets to already exist under `data/`):
+Regenerate the above paper figures at once (expects the corresponding `.jld2` datasets to already exist under `data/`):
 
 ```sh
 ./generate_plots.sh
 ```
 
+Generate the overlap data for the derivative and integral estimators used in Figure 8, and plot the resulting relative error in the projected matrices and ground energies.
+
+```sh
+python differentiator.py
+```
+
 ## Data
 
-`data/` is where the `.jld2` overlap datasets consumed by `eigvals-plot.jl` and `generate_plots.sh` are expected to live, organized in one subfolder per configuration/system size. These files are generated locally with `eigvals.jl`/`eigvals-dmrg.jl` and are not tracked in git (see `.gitignore`).
+`data/` is where the `.jld2` overlap datasets consumed by `eigvals-plot.jl` and `generate_plots.sh` are expected to live, organized in one subfolder per configuration/system size. These files are generated locally with `eigvals.jl`/`eigvals-dmrg.jl`. `indirect_method_data/` stores the `.npz` overlap datasets for the integral and derivative estimators used in Figure 8. None of the preceeding data is tracked in git (see `.gitignore`).
 
 ## Citation
 
